@@ -1,7 +1,7 @@
 resource "aws_instance" "main" {
   ami                         = "ami-0084a47cc718c111a"
   instance_type               = "t2.small"
-  subnet_id                   = aws_subnet.main.id
+  subnet_id                   = aws_subnet.main_a.id
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.main.id]
   key_name                    = "NEW"
@@ -49,6 +49,6 @@ resource "aws_security_group" "main" {
 
 
 output "ec2_public_ip" {
-  value       = format("Webseite @ http://%s", aws_instance.main.public_ip)
+  value       = format("Webseite @ http://%s", aws_lb.main.dns_name)
   description = "Öffentliche IP-Adresse der EC2-Instanz"
 }
